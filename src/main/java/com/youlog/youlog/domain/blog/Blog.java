@@ -33,10 +33,14 @@ public class Blog extends BaseEntity {
     }
 
     public void updateName(MemberInfo member, String updatedName) {
+        checkAdmin(member);
+        this.name = updatedName;
+    }
+
+    private void checkAdmin(MemberInfo member){
         if (!Objects.equals(this.admin.getId(), member.getId())){
             throw new IllegalArgumentException("수정 권한이 없는 사용자입니다.");
         }
-        this.name = updatedName;
     }
 
 }
