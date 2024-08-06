@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseEntity {
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
@@ -27,6 +28,11 @@ public class Comment extends BaseEntity {
     private String content;
     @Embedded
     private CommentHierarchy commentHierarchy;
+
+    public static Comment createComment(Post postId, Comment parent, MemberInfo memberInfo, String content, CommentHierarchy commentHierarchy) {
+        return new Comment(postId, parent, memberInfo, content, commentHierarchy);
+    }
+
 
     @Embeddable
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,9 +58,6 @@ public class Comment extends BaseEntity {
         return new CommentHierarchy(ref, level, seq);
     }
 
-    public static Comment createComment(Post postId, Comment parent, MemberInfo memberInfo, String content, CommentHierarchy commentHierarchy) {
-        return new Comment(postId, parent, memberInfo, content, commentHierarchy);
-    }
 
     private Comment(Post post, Comment parent, MemberInfo memberInfo, String content, CommentHierarchy commentHierarchy) {
         this.post = post;
