@@ -1,20 +1,44 @@
 package com.youlog.youlog.domain.comment;
 
 
+import com.youlog.youlog.domain.member.MemberInfo;
+import com.youlog.youlog.domain.post.Post;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "comment")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long postId;
-    private Long parentId;
-    private Long writerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer_id")
+    private MemberInfo writer;
+    @Column(name = "content")
     private String content;
+    @Embedded
     private CommentHierarchy commentHierarchy;
-    protected Comment() {
-    }
 
+    @Embeddable
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CommentHierarchy {
+        @Column(name = "ref")
         private Integer ref;
+        @Column(name = "level")
         private Integer level;
+        @Column(name = "seq")
         private Integer seq;
 
         private CommentHierarchy(Integer ref, Integer level, Integer seq) {
@@ -23,6 +47,7 @@ public class Comment {
             this.seq = seq;
         }
     }
+
     public static CommentHierarchy createCategoryHierarchy(Integer ref, Integer level, Integer seq) {
         if (ref == null || level == null || seq == null) {
             throw new IllegalArgumentException("ref, level, seq null이 될 수 없습니다.");
@@ -30,14 +55,14 @@ public class Comment {
         return new CommentHierarchy(ref, level, seq);
     }
 
-    public static Comment createComment(Long postId, Long parentId, Long writerId, String content, CommentHierarchy commentHierarchy) {
-        return new Comment(postId, parentId, writerId, content, commentHierarchy);
+    public static Comment createComment(Post postId, Comment parent, MemberInfo memberInfo, String content, CommentHierarchy commentHierarchy) {
+        return new Comment(postId, parent, memberInfo, content, commentHierarchy);
     }
 
-    private Comment(Long postId, Long parentId, Long writerId, String content, CommentHierarchy commentHierarchy) {
-        this.postId = postId;
-        this.parentId = parentId;
-        this.writerId = writerId;
+    private Comment(Post post, Comment parent, MemberInfo memberInfo, String content, CommentHierarchy commentHierarchy) {
+        this.post = post;
+        this.parent = parent;
+        this.writer = memberInfo;
         this.content = content;
         this.commentHierarchy = commentHierarchy;
     }
