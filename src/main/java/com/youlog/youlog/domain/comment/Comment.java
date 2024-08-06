@@ -1,6 +1,7 @@
 package com.youlog.youlog.domain.comment;
 
 
+import com.youlog.youlog.common.model.BaseEntity;
 import com.youlog.youlog.domain.member.MemberInfo;
 import com.youlog.youlog.domain.post.Post;
 import jakarta.persistence.*;
@@ -12,11 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "comment")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
