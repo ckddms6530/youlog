@@ -1,13 +1,21 @@
 package com.youlog.youlog.domain.tag;
 
+import com.youlog.youlog.common.model.BaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "tag")
 @Getter
-public class Tag {
-    private Long id;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Tag extends BaseEntity {
+
+    @Column(name = "name")
     private String name;
-    protected Tag() {
-    }
     private Tag(String name) {
         this.name = name;
     }
