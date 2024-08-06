@@ -1,27 +1,39 @@
 package com.youlog.youlog.domain.blog;
 
+import com.youlog.youlog.common.model.BaseEntity;
+import com.youlog.youlog.domain.member.MemberInfo;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
-public class Blog {
+@Entity
+@Table(name = "blog")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Blog extends BaseEntity {
 
-    private Long id;
+    @Column(name = "name")
     private String name;
-    private Long adminId;
 
-    protected Blog(){
-    }
+    @JoinColumn(name = "admin_id")
+    @ManyToOne
+    private MemberInfo admin;
 
-    private Blog(Long adminId, String name){
-        this.adminId = adminId;
+
+    private Blog(MemberInfo member, String name){
+        this.admin = member;
         this.name = name;
     }
 
-    public static Blog createBlog(Long memberId, String name){
-        return new Blog(memberId, name);
+    public static Blog createBlog(MemberInfo member, String name){
+        return new Blog(member, name);
     }
 
-    public void updateName(Long memberId, String updatedName) {
-        if (!Objects.equals(adminId, memberId)){
+    public void updateName(MemberInfo member, String updatedName) {
+        if (!Objects.equals(this.admin.getId(), member.getId())){
             throw new IllegalArgumentException("수정 권한이 없는 사용자입니다.");
         }
         this.name = updatedName;
