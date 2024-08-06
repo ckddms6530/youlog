@@ -13,14 +13,11 @@ public class SocialMember {
 
     @Id
     private Long id;
-
     @JoinColumn(name = "social_provider_id")
     @ManyToOne
     private SocialProvider socialProvider;
-
     @JoinColumn(name = "social_account_id")
     private String socialAccountId;
-
     @MapsId
     @OneToOne
     @JoinColumn(name = "member_id")
