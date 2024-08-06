@@ -1,21 +1,31 @@
 package com.youlog.youlog.domain.visitor;
 
-public class Visitor {
-    private Long id;
+import com.youlog.youlog.common.model.BaseEntity;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Entity
+@Table(name = "visitor")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Visitor extends BaseEntity {
+
+    @Column(name = "token")
     private String token;
+    @Column(name = "browser")
     private String browser;
+    @JoinColumn(name = "device_type_id")
+    @ManyToOne
     private DeviceType deviceType;
 
-    protected Visitor() {
-    }
-
-    private Visitor(String token, String browser, DeviceType deviceType) {
-        this.token = token;
+    public Visitor(String browser, DeviceType deviceType) {
+        this.token = UUID.randomUUID().toString();
         this.browser = browser;
         this.deviceType = deviceType;
     }
 
-    private enum DeviceType {
-        PC, MOBILE, TABLET
-    }
 }

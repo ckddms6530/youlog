@@ -1,22 +1,30 @@
 package com.youlog.youlog.domain.member;
 
-public class LocalMember extends Member {
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "local_member")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class LocalMember {
+
+    @Id
+    private Long id;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private MemberInfo memberInfo;
 
-    protected LocalMember() {
-    }
-
-    private LocalMember(String email, String password) {
+    public LocalMember(String email, String password, MemberInfo memberInfo) {
         this.email = email;
         this.password = password;
+        this.memberInfo = memberInfo;
     }
-
-    private LocalMember(String email, String password, String nickname) {
-        super(nickname);
-        this.email = email;
-        this.password = password;
-    }
-
 }

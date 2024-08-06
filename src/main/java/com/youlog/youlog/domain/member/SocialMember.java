@@ -1,18 +1,34 @@
 package com.youlog.youlog.domain.member;
 
-public class SocialMember extends Member{
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-    private Long socialProviderId;
-    private String socialClientId;
+@Entity
+@Table(name = "social_member")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SocialMember {
 
-    public static class SocialProvider {
-        private Long id;
-        private String name;
+    @Id
+    private Long id;
+
+    @JoinColumn(name = "social_provider_id")
+    @ManyToOne
+    private SocialProvider socialProvider;
+
+    @JoinColumn(name = "social_account_id")
+    private String socialAccountId;
+
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private MemberInfo memberInfo;
+
+    public SocialMember(SocialProvider socialProvider, String socialAccountId, MemberInfo memberInfo) {
+        this.socialProvider = socialProvider;
+        this.socialAccountId = socialAccountId;
+        this.memberInfo = memberInfo;
     }
-    private SocialMember(Long socialProviderId, String socialClientId, String nickname) {
-        super(nickname);
-        this.socialProviderId = socialProviderId;
-        this.socialClientId = socialClientId;
-    }
-
 }
