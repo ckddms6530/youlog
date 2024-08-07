@@ -22,11 +22,13 @@ public class MemberInfo extends BaseEntity {
     @Column(name = "latest_login_at")
     private LocalDateTime latestLoginAt;
 
-    protected MemberInfo(String nickname){
+    public MemberInfo(String nickname){
         this.nickname = nickname;
     }
     public void updateNickname(String nickname){
         this.nickname = nickname;
     }
-
+    public void updateLatestLoginAt(){
+        this.latestLoginAt = LocalDateTime.now();
+    }
 }
