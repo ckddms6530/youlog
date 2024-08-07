@@ -1,5 +1,6 @@
 package com.youlog.youlog.domain.member;
 
+import com.youlog.youlog.common.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "social_member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SocialMember {
+public class SocialMember extends BaseEntity {
 
-    @Id
-    private Long id;
     @JoinColumn(name = "social_provider_id")
     @ManyToOne
     private SocialProvider socialProvider;
