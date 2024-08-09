@@ -1,7 +1,5 @@
 package com.youlog.youlog.domain.member;
 
-import com.youlog.youlog.common.model.BaseEntity;
-import com.youlog.youlog.domain.member.exception.LoginFaildException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "local_member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LocalMember extends BaseEntity {
+public class LocalMember {
 
+    @Id
+    private Long id;
     @Column(name = "email")
     private String email;
     @Column(name = "password")
@@ -26,13 +26,5 @@ public class LocalMember extends BaseEntity {
         this.email = email;
         this.password = password;
         this.memberInfo = memberInfo;
-    }
-
-    public MemberInfo login(String email, String password) {
-        if (!this.email.equals(email) || !this.password.equals(password)) {
-            throw new LoginFaildException();
-        }
-        this.memberInfo.updateLatestLoginAt();
-        return this.memberInfo;
     }
 }
