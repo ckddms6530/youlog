@@ -1,10 +1,12 @@
 package com.youlog.youlog.domain.post;
 
 import com.youlog.youlog.common.model.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.youlog.youlog.domain.blog.Blog;
+import com.youlog.youlog.domain.category.Category;
+import com.youlog.youlog.domain.member.MemberInfo;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,33 +20,27 @@ public class Post extends BaseEntity {
     private String title;
     @Column(name = "content")
     private String content;
-    @Column(name = "blog_id")
-    private Long blogId;
-    @Column(name = "writer_id")
-    private Long writerId;
-    @Column(name = "category_id")
-    private Long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
+    @ManyToOne
+    @JoinColumn(name = "writer_id")
+    private MemberInfo writer;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     @Column(name = "is_hided")
     private boolean hided;
 
-    private Post(String title, String content, Long blogId, Long writerId, Long categoryId, boolean hided) {
+    @Builder
+    private Post(String title, String content, Blog blog, MemberInfo writer, Category category, boolean hided) {
         this.title = title;
         this.content = content;
-        this.blogId = blogId;
-        this.writerId = writerId;
-        this.categoryId = categoryId;
+        this.blog = blog;
+        this.writer = writer;
+        this.category = category;
         this.hided = hided;
     }
 
-    public static Post createPost(String title, String content, Long blogId, Long writerId, Long categoryId, boolean hided) {
-        return new Post(title, content, blogId, writerId, categoryId, hided);
-    }
-
-    public void updatePost(String title, String content, Long categoryId, boolean hided) {
-        this.title = title;
-        this.content = content;
-        this.categoryId = categoryId;
-        this.hided = hided;
-    }
 
 }
