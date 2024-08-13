@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MemberController {
 
     private final MemberService memberService;
+
     @GetMapping("/login")
     public String loginPage(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
