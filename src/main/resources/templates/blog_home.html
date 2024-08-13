@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>블로그 홈 - Youlog</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div class="hero-header container-fluid blog py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                 style="max-width: 900px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <h4 class="text-primary">Youlog</h4>
+                <h1 class="display-5 mb-4">최근 만들어진 블로그</h1>
+                <p class="mb-0">새로 시작하는 다양한 주제와 스타일의 블로그들을 만나보세요! 신선한 콘텐츠를 찾아보고, 새로운 블로거들과 소통해 보세요!
+                </p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;"
+                     th:each="blog : ${blogList}">
+                    <div class="blog-item">
+                        <div class="blog-img">
+                            <img alt="" class="img-fluid w-100" src="/img/blog-3.png">
+                            <div class="blog-info">
+                                <span th:text="${blog.getCreatedAt()}"><i class="fa fa-clock"></i> Dec 01.2024</span>
+                                <div class="d-flex">
+                                    <span class="me-3"> 3 <i class="fa fa-heart"></i></span>
+                                    <a class="text-white" href="#">0 <i class="fa fa-comment"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-content text-dark border p-4 ">
+                            <h5 class="mb-4" th:text="${blog.getName()}"></h5>
+                            <p class="mb-4">블로그 설명</p>
+                            <a class="btn btn-light rounded-pill py-2 px-4" th:href="'/blogs/'+${blog.getId()}">Read
+                                More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+
+</html>

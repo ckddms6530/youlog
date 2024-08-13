@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+        <title>Youlog</title>
+    </head>
+
+    <body>
+            <th:block layout:fragment="content">
+                <div class="hero-header overflow-hidden px-5">
+                    <div class="rotate-img">
+                        <img src="/img/sty-1.png" class="img-fluid w-100" alt="">
+                        <div class="rotate-sty-2"></div>
+                    </div>
+                    <div class="row gy-5 align-items-center">
+                        <div class="col-md-6">
+                            <form class="card" th:action="${@environment.getProperty('url.blog')}" method="post">
+                                <div class="card-header">
+                                    <h3 class="card-title" th:text="#{blog.register}"></h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label required" th:text="#{blog.name}"></label>
+                                        <div>
+                                            <input type="text" class="form-control" name="name" aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer text-end">
+                                    <button type="submit" class="btn btn-primary" th:text="#{blog.register}"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+    </body>
+
+</html>
