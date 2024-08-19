@@ -22,8 +22,8 @@ public class Blog extends BaseEntity {
     @ManyToOne
     private MemberInfo admin;
 
-
-    private Blog(MemberInfo member, String name){
+    @Builder
+    private Blog(MemberInfo member, String name) {
         this.admin = member;
         this.name = name;
     }
