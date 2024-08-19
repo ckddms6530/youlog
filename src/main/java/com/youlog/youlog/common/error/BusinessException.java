@@ -3,16 +3,16 @@ package com.youlog.youlog.common.error;
 import lombok.Getter;
 
 @Getter
-public abstract class BusinessException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
     private final ErrorCode errorCode;
 
-    protected BusinessException(ErrorCode errorCode) {
-        super();
+    public BusinessException(ErrorCode errorCode) {
+        super(errorCode.getReason());
         this.errorCode = errorCode;
     }
 
-    protected BusinessException(ErrorCode errorCode, String message) {
+    public BusinessException(ErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
