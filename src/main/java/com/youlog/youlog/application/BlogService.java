@@ -20,8 +20,11 @@ public class BlogService {
 
     public void register(String title, Long memberId) {
         MemberInfo memberInfo = memberInfoRepository.getReferenceById(memberId);
-        //이미 블로그가 존재하는지 확인
-        Blog blog = Blog.createBlog(memberInfo, title);
+        Blog.checkCreationLimit(blogRepository.countByAdmin_Id(memberId));
+        Blog blog = Blog.builder()
+                .name(title)
+                .member(memberInfo)
+                .build();
         blogRepository.save(blog);
     }
 
@@ -34,4 +37,5 @@ public class BlogService {
     public Blog getBlog(Long blogId) {
         return blogRepository.findById(blogId).orElseThrow();
     }
+
 }
