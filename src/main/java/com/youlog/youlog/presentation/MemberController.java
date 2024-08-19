@@ -10,33 +10,34 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/members")
 @Slf4j
 public class MemberController {
 
+    private static final String LOGIN_VIEW = "member/login";
+    private static final String SIGNUP_VIEW = "member/signup";
+
     private final MemberService memberService;
 
-    @GetMapping("/login")
+    @GetMapping("${url.login}")
     public String loginPage(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
             log.debug("login failed");
             model.addAttribute("error", "이메일과 비밀번호를 확인해주세요.");
         }
-        return "login";
+        return LOGIN_VIEW;
     }
 
-    @GetMapping("/signup")
+    @GetMapping("${url.signup}")
     @PreAuthorize("isAnonymous()")
     public String registerPage() {
-        return "signup";
+        return SIGNUP_VIEW;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("${url.signup}")
     public String register(@Valid MemberRegisterRequest registerRequest) {
         memberService.registerMember(registerRequest.email(), registerRequest.password(), registerRequest.nickname());
         return "redirect:/";
