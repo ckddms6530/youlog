@@ -1115,10 +1115,6 @@
 
 /*** copyright end ***/
 
-.flex-grow-1 {
-    margin-left: 250px; /* 사이드바와 충돌하지 않도록 마진 설정 */
-}
-
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
@@ -1196,3 +1192,15 @@ aside {
     top: 100px;
     right: 300px;
 }
+
+
+@font-face {
+    font-family: 'goorm-sans-bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/goorm-sans-bold.woff2') format('woff2');
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, body:lang(ko) {
+    font-family: 'goorm-sans-bold', sans-serif;
+}
+
