@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>카테고리 관리 - Youlog</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div class="d-flex">
+        <th:block th:replace="~{fragments/sidebar/sidebar_manage :: sidebar}"></th:block>
+        <div class="hero-header container-fluid service py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                     style="max-width: 900px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                    <h4 class="text-primary">Blog Name</h4>
+                    <h1 class="display-5 mb-4">카테고리 관리</h1>
+                </div>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-5 wow fadeInLeft service-item p-0 rounded shadow-sm" data-wow-delay="0.1s">
+                        <ul class="list-group">
+                            <!--/*@thymesVar id="category" type="com.youlog.youlog.domain.category.Category"*/-->
+                            <li class="list-group-item d-flex align-items-center"
+                                th:classappend="${category.hierarchy.level == 0 ? 'active' : ''}"
+                                th:each="category : ${categories}">
+                                <span class="me-3" th:text="${category.name}"></span>
+                                <span class="ms-auto badge bg-primary" data-bs-target="#manageCategoryModal"
+                                      data-bs-toggle="modal">관리</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 wow fadeInLeft" data-wow-delay="0.1s"
+                         style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;">
+                        <h2 class="display-5 mb-2">카테고리 추가</h2>
+                        <form class="col-12 wow fadeInRight" data-wow-delay="0.1s" method="post"
+                              th:action="@{${urls.manage.category}(blogId=${blogId})}">
+                            <input name="blogId" th:value="${blogId}" type="hidden">
+                            <div class="row g-3">
+                                <div class="col-4 form-floating">
+                                    <select aria-label="상위 카테고리 선택" class="form-select py-3" name="parentId">
+                                        <option selected>없음</option>
+                                        <option th:each="category : ${categories}"
+                                                th:if="${category.hierarchy.level == 0}"
+                                                th:text="${category.name}"
+                                                th:value="${category.id}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-floating col-8">
+                                    <input class="form-control" id="subject" name="name" placeholder="추가할 카테고리"
+                                           type="text">
+                                    <label for="subject">추가할 카테고리</label>
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">추가</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Manage Category Modal -->
+    <div aria-hidden="true" aria-labelledby="manageCategoryModalLabel" class="modal fade" id="manageCategoryModal"
+         tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageCategoryModalLabel">Manage Category</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label" for="categoryName">Category Name</label>
+                            <input class="form-control" id="categoryName" placeholder="Enter new category name"
+                                   type="text">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="categoryType">Category Type</label>
+                            <select class="form-select" id="categoryType">
+                                <option value="main">Main</option>
+                                <option value="sub">Sub</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="categoryPosition">Category Position</label>
+                            <input class="form-control" id="categoryPosition" placeholder="Enter new position"
+                                   type="text">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</body>
+</html>

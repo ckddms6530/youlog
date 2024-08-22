@@ -19,12 +19,12 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-5">
-                                                <h3 th:text="#{register.title}"></h3>
-                                                <p th:if="${error != null}" th:text="${error}"></p>
+                                                <h3 th:text="#{signup}"></h3>
+                                                <p th:if="${error != null}" th:text="#{${error}}"></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <form method="post" th:action="${@environment.getProperty('url.member-signup')}">
+                                    <form method="post" th:action="${urls.signup}">
                                         <div class="row gy-3 gy-md-4 overflow-hidden">
                                             <div class="col-12">
                                                 <label class="form-label" for="email">Email <span
@@ -47,19 +47,9 @@
                                                        value="">
                                             </div>
                                             <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" id="remember_me" name="remember_me"
-                                                           type="checkbox"
-                                                           value="">
-                                                    <label class="form-check-label text-secondary" for="remember_me">
-                                                        기억해줘요
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
                                                 <div class="d-grid">
                                                     <button class="btn bsb-btn-xl btn-primary"
-                                                            th:text="#{register.submit}"
+                                                            th:text="#{signup}"
                                                             type="submit"></button>
                                                 </div>
                                             </div>
@@ -70,7 +60,7 @@
                                             <hr class="mt-5 mb-4 border-secondary-subtle">
                                             <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
                                                 <a class="link-secondary text-decoration-none"
-                                                   th:href="${@environment.getProperty('url.member-login')}"
+                                                   th:href="${urls.login}"
                                                    th:text="#{login}"></a>
                                             </div>
                                         </div>
@@ -80,7 +70,7 @@
                             <div class="col-12 col-md-6">
                                 <img alt="BootstrapBrain Logo"
                                      class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy"
-                                     src="/main.png">
+                                     src="/img/main.png">
                             </div>
                         </div>
                     </div>

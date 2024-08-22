@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>블로그 홈 - Youlog</title>
+</head>
+
+<body>
+<div class="d-flex">
+    <th:block th:replace="~{fragments/sidebar/sidebar_manage :: sidebar}"></th:block>
+    <div class="hero-header container-fluid blog py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                 style="max-width: 900px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <h4 class="text-primary">Youlog</h4>
+                <h1 class="display-5 mb-4">최근 만들어진 블로그</h1>
+                <p class="mb-0">새로 시작하는 다양한 주제와 스타일의 블로그들을 만나보세요! 신선한 콘텐츠를 찾아보고, 새로운 블로거들과 소통해 보세요!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

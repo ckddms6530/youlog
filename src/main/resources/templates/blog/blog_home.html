@@ -18,13 +18,14 @@
                 </p>
             </div>
             <div class="row g-4 justify-content-center">
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;"
+                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s"
+                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;"
                      th:each="blog : ${blogList}">
                     <div class="blog-item">
                         <div class="blog-img">
                             <img alt="" class="img-fluid w-100" src="/img/blog-3.png">
                             <div class="blog-info">
-                                <span th:text="${blog.getCreatedAt()}"><i class="fa fa-clock"></i> Dec 01.2024</span>
+                                <span th:text="${blog.createdAt}"><i class="fa fa-clock"></i> Dec 01.2024</span>
                                 <div class="d-flex">
                                     <span class="me-3"> 3 <i class="fa fa-heart"></i></span>
                                     <a class="text-white" href="#">0 <i class="fa fa-comment"></i></a>
@@ -32,9 +33,10 @@
                             </div>
                         </div>
                         <div class="blog-content text-dark border p-4 ">
-                            <h5 class="mb-4" th:text="${blog.getName()}"></h5>
+                            <h5 class="mb-4" th:text="${blog.name}"></h5>
                             <p class="mb-4">블로그 설명</p>
-                            <a class="btn btn-light rounded-pill py-2 px-4" th:href="'/blogs/'+${blog.getId()}">Read
+                            <a class="btn btn-light rounded-pill py-2 px-4"
+                               th:href="${urls.blog.home}+'/'+${blog.getId()}">Read
                                 More</a>
                         </div>
                     </div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 관리</title>
+
+</head>
+<body>
+<aside class="flex-shrink-0 ps-5" th:fragment="sidebar">
+    <!--    <button class="btn btn-primary btn-sm d-lg-none p-2 mt-3 ms-3" data-bs-target="#offcanvasSidebar"-->
+    <!--            data-bs-toggle="offcanvas"-->
+    <!--            type="button">-->
+    <!--        <i class="fas fa-bars fa-sm"></i> <span class="small">메뉴</span>-->
+    <!--    </button>-->
+    <!--    <div class="d-lg-none">-->
+    <!--        <div class="offcanvas offcanvas-start" id="offcanvasSidebar" tabindex="-1">-->
+    <!--            <div class="offcanvas-header">-->
+    <!--                <h5 class="offcanvas-title" id="sidebarLabel">카테고리</h5>-->
+    <!--                <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button"></button>-->
+    <!--            </div>-->
+    <!--            <div class="offcanvas-body">-->
+    <!--                <th:block th:replace="~{fragments/sidebar/sidebar_manage :: sidebar}"></th:block>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="d-none d-lg-block">
+        <a class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom"
+           href="/static">
+            <i class="fas fa-cog me-3"></i>
+            <span class="fs-5 fw-semibold">마이 페이지</span>
+        </a>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1 border-bottom my-3">
+                <span class="fs-5 fw-semibold">블로그 관리</span>
+                <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-inline fw-normal pb-1 small">
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                               th:href="@{${urls.manage.newPost}(blogId=${blogId})}">새 글 작성</a></li>
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                               href="#">글 관리</a></li>
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                               th:href="@{${urls.manage.category}(blogId=${blogId})}">카테고리 관리</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1 border-bottom my-3">
+                <span class="fs-5 fw-semibold">통계</span>
+                <div class="collapse show" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">방문 통계</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <span class="fs-5 fw-semibold">계정</span>
+                <div class="collapse show" id="orders-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">닉네임 변경</a>
+                        </li>
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">비밀번호
+                            변경</a>
+                        </li>
+                        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">회원 탈퇴</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="border-top my-3"></li>
+        </ul>
+    </div>
+</aside>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>글 작성 - Youlog</title>
+
+    <link href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" rel="stylesheet"/>
+    <style>
+    </style>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div class="container-fluid blog py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                 style="max-width: 900px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <h4 class="text-primary">게시글 작성</h4>
+            </div>
+            <div id="post-write-area">
+                <form id="post-write-form" method="post" th:action="${urls.manage.newPost}">
+                    <div class="mb-4">
+                        <input class="border-0 border-bottom w-100 py-2 form-control-lg" name="title"
+                               placeholder="제목을 입력하세요"
+                               type="text">
+                    </div>
+                    <input name="content" type="hidden">
+
+                    <div class="mb-3">
+                        <div id="editor"></div>
+                    </div>
+                    <button class="btn btn-primary" id="save">작성</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Toast UI Editor -->
+        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+        <script>
+            const editor = new toastui.Editor({
+                el: document.getElementById('editor'),
+                height: '500px',
+                initialEditType: 'markdown',
+                initialValue: '내용을 입력해 주세요.',
+                previewStyle: 'vertical',
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const postWriteForm = document.getElementById('post-write-form');
+                document.getElementById('save').addEventListener('click', (event) => {
+                    if (confirm('작성하시겠습니까?')) {
+                        const content = editor.getMarkdown();
+                        postWriteForm.content.value = content;
+                        alert('작성되었습니다.');
+                    } else {
+                        event.preventDefault();
+                        alert('작성이 취소되었습니다.');
+                    }
+                });
+            });
+        </script>
+    </div>
+
+</th:block>
+</body>
+
+</html>

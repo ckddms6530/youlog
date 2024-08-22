@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside class="flex-shrink-0 ps-5 d-lg-block d-none" th:fragment="sidebar">
+    <a class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom" href="/static">
+        <i class="fas fa-envelope me-3"></i>
+        <span class="fs-5 fw-semibold">카테고리</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1" th:each="category, index : ${categories}">
+            <button aria-expanded="true"
+                    class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse"
+                    th:attrappend="data-bs-target=${'#home-collapse' + category.hierarchy.ref}"
+                    th:if="${category.hierarchy.level == 0}" th:text="${category.name}">
+            </button>
+            <div class="collapse show" th:id="${'home-collapse' + category.hierarchy.ref}"
+                 th:if="${category.hierarchy.level == 1}">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                           th:href="@{'/blogs/' + ${blog.id} + '/posts'(category=${category.id})}"
+                           th:text="${category.name}"></a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</aside>
+
+</body>
+</html>

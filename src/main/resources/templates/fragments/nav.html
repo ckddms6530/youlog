@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<nav class="navbar navbar-expand-lg fixed-top navbar-light px-4 px-lg-5 py-3 py-lg-0" th:fragment="nav">
-    <a class="navbar-brand p-0" href="/">
-        <h1 class="display-6 text-primary m-0"><i class="fas fa-envelope me-3"></i>Youlog</h1>
-        <!-- <img src="img/logo.png" alt="Logo"> -->
-    </a>
-    <button class="navbar-toggler" data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
-        <span class="fa fa-bars"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-0">
-            <a class="nav-item nav-link active" th:href="${@environment.getProperty('url.blog-home')}">블로그</a>
-            <a class="nav-item nav-link" href="/about.html">About</a>
-            <a class="nav-item nav-link" href="/service.html">Services</a>
-            <a class="nav-item nav-link" href="/contact.html">Contact Us</a>
+<div class="container-fluid p-0" th:fragment="nav">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+        <a class="navbar-brand p-0" href="/">
+            <h1 class="display-6 text-primary m-0"><i class="fas fa-envelope me-3"></i>Youlog</h1>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </a>
+        <button class="navbar-toggler" data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a class="nav-item nav-link active" th:href="${urls.blog.home}">블로그</a>
+                <a class="nav-item nav-link" href="#태그">Services</a>
+                <a class="nav-item nav-link" href="공지사항">Contact Us</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a class="btn btn-light border border-primary rounded-pill text-primary py-2 px-4 me-4"
+                   th:href="${urls.login}" th:text="#{login}"></a>
+                <a class="btn btn-primary rounded-pill text-white py-2 px-4"
+                   th:href="${urls.signup}" th:text="#{signup}"></a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <div class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       sec:authentication="principal.nickname"></a>
+                    <div class="dropdown-menu m-0 dropdown-menu-end dropdown-menu-lg-start">
+                        <h6 class="dropdown-header" th:text="#{blog}"></h6>
+                        <a class="dropdown-item"
+                           th:each="blog : ${#authentication.principal.blogMap}"
+                           th:href="@{${urls.manage.main}(blogId=${blog.key})}"
+                           th:if="${#authentication.principal.blogMap.size() != 0}"
+                           th:text="${blog.value}"></a>
+                        <a class="dropdown-item active" th:href="@{${urls.blog.create}}"
+                           th:if="${#authentication.principal.blogMap.size() == 0}" th:text="#{blog.create}"></a>
+                        <hr class="dropdown-divider">
+                        <h6 class="dropdown-header" th:text="#{account}"></h6>
+                        <a class="dropdown-item" href="#" th:text="#{profile-edit}">Profile</a>
+                        <a class="dropdown-item" th:href="@{${urls.logout}}" th:text="#{logout}">Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div sec:authorize="isAnonymous()">
-            <a class="btn btn-light border border-primary rounded-pill text-primary py-2 px-4 me-4"
-               th:href="${@environment.getProperty('url.member-login')}">Log In</a>
-            <a class="btn btn-primary rounded-pill text-white py-2 px-4"
-               th:href="${@environment.getProperty('url.member-signup')}">Sign Up</a>
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            <a sec:authentication="principal.nickname"></a>
-        </div>
-    </div>
-</nav>
-
+    </nav>
+</div>
 </html>
