@@ -1,9 +1,9 @@
 package com.youlog.youlog.application;
 
-import com.youlog.youlog.application.repository.BlogRepository;
-import com.youlog.youlog.application.repository.MemberInfoRepository;
 import com.youlog.youlog.domain.blog.Blog;
 import com.youlog.youlog.domain.member.MemberInfo;
+import com.youlog.youlog.infrastructure.repository.blog.BlogRepository;
+import com.youlog.youlog.infrastructure.repository.member.MemberInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +18,14 @@ public class BlogService {
     private final BlogRepository blogRepository;
     private final MemberInfoRepository memberInfoRepository;
 
-    public void register(String title, Long memberId) {
+    public Blog createBlog(String title, Long memberId) {
         MemberInfo memberInfo = memberInfoRepository.getReferenceById(memberId);
         Blog.checkCreationLimit(blogRepository.countByAdmin_Id(memberId));
         Blog blog = Blog.builder()
                 .name(title)
                 .member(memberInfo)
                 .build();
-        blogRepository.save(blog);
+        return blogRepository.save(blog);
     }
 
     @Transactional(readOnly = true)
