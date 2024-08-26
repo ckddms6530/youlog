@@ -1,4 +1,4 @@
-package com.youlog.youlog.application.repository;
+package com.youlog.youlog.infrastructure.repository.member;
 
 import com.youlog.youlog.domain.member.SocialMember;
 import org.springframework.data.jpa.repository.JpaRepository;

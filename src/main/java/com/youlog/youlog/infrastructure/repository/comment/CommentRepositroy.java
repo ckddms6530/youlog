@@ -1,4 +1,4 @@
-package com.youlog.youlog.application.repository;
+package com.youlog.youlog.infrastructure.repository.comment;
 
 import com.youlog.youlog.domain.comment.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;

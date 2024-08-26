@@ -1,4 +1,4 @@
-package com.youlog.youlog.application.repository;
+package com.youlog.youlog.infrastructure.repository.post;
 
 import com.youlog.youlog.domain.post.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
