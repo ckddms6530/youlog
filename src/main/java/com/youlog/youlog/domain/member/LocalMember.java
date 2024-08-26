@@ -2,6 +2,7 @@ package com.youlog.youlog.domain.member;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,8 @@ public class LocalMember {
     @JoinColumn(name = "member_id")
     private MemberInfo memberInfo;
 
-    public LocalMember(String email, String password, MemberInfo memberInfo) {
+    @Builder
+    private LocalMember(String email, String password, MemberInfo memberInfo) {
         this.email = email;
         this.password = password;
         this.memberInfo = memberInfo;
