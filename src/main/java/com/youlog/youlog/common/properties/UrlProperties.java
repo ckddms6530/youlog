@@ -22,17 +22,21 @@ public class UrlProperties {
     private final String userManagement;
     private final String viewUser;
     private final String deleteUser;
-    private final String manage;
 
     @NestedConfigurationProperty
     private final UrlProperties.Blog blog;
     @NestedConfigurationProperty
     private final UrlProperties.Post post;
+    @NestedConfigurationProperty
+    private final UrlProperties.Manage manage;
 
     public record Blog(String home, String create, String manage, String delete, String view) {
     }
 
-    public record Post(String write, String view) {
+    public record Post(String view) {
+    }
+
+    public record Manage(String main, String category, String post, String newPost) {
     }
 
 }
