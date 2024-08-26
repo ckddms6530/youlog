@@ -1,8 +1,9 @@
-package com.youlog.youlog.presentation;
+package com.youlog.youlog.presentation.blog;
 
 import com.youlog.youlog.application.BlogService;
+import com.youlog.youlog.application.category.CategoryService;
+import com.youlog.youlog.common.security.CustomUserDetails;
 import com.youlog.youlog.domain.blog.Blog;
-import com.youlog.youlog.domain.member.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class BlogController {
     private static final String BLOG_CREATE_VIEW = "blog/blog_create";
 
     private final BlogService blogService;
+    private final CategoryService categoryService;
 
     @GetMapping("${url.blog.create}")
     public String createForm() {
@@ -29,7 +31,8 @@ public class BlogController {
 
     @PostMapping("${url.blog.create}")
     public String create(String name, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        blogService.register(name, userDetails.getId());
+        Blog blog = blogService.createBlog(name, userDetails.getId());
+        userDetails.getBlogMap().put(blog.getId(), blog.getName());
         return "redirect:/blogs";
     }
 
@@ -43,6 +46,7 @@ public class BlogController {
     @GetMapping("${url.blog.view}")
     public String viewBlog(@PathVariable Long blogId, Model model) {
         Blog blog = blogService.getBlog(blogId);
+        model.addAttribute("categories", categoryService.getCategoryList(blogId));
         model.addAttribute("blog", blog);
         return "blog/blog";
     }

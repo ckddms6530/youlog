@@ -1,8 +1,8 @@
-package com.youlog.youlog.presentation;
+package com.youlog.youlog.presentation.post;
 
 import com.youlog.youlog.application.PostService;
-import com.youlog.youlog.domain.member.CustomUserDetails;
-import com.youlog.youlog.presentation.request.PostWriteRequest;
+import com.youlog.youlog.common.security.CustomUserDetails;
+import com.youlog.youlog.presentation.post.request.PostWriteRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +18,12 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("${url.post.write}")
+    @GetMapping("${url.manage.new-post}")
     public String writePostPage() {
         return "post/post_write";
     }
 
-    @PostMapping("${url.post.write}")
+    @PostMapping("${url.manage.new-post}")
     public String writePost(@Valid PostWriteRequest request, @AuthenticationPrincipal CustomUserDetails userDetails) {
         log.info("writePost request: {}", userDetails.getNickname());
         postService.writePost(request, userDetails.getId());

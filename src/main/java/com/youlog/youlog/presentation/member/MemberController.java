@@ -1,7 +1,7 @@
-package com.youlog.youlog.presentation;
+package com.youlog.youlog.presentation.member;
 
 import com.youlog.youlog.application.MemberService;
-import com.youlog.youlog.presentation.request.MemberRegisterRequest;
+import com.youlog.youlog.presentation.member.request.MemberRegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
